@@ -1,0 +1,17 @@
+{
+    "name": "lightsaber",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/lightsaber.js",
+    "dependencies": {
+        "bower": "^1.7.9"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-server-livereload": "^1.8.2"
+    },
+    "scripts": {
+        "postinstall": "bower install; gulp",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}

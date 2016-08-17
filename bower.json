@@ -1,0 +1,50 @@
+{
+  "name": "lightsaber",
+  "version": "0.1.0",
+  "homepage": "https://github.com/vapaee/lightsaber",
+  "description": "game engine that creates a game from a JSON description (build over phaser.js).",
+  "main": "dist/lightsaber.js",
+  "keywords": [
+    "lightsaber",
+    "game",
+    "json",
+    "descriptive",
+    "ui",
+    "easy",
+    "phaser"
+  ],
+  "authors": [
+    {
+      "name": "Viterbo Rodríguez Flániguen",
+      "email": "viter.rod@gmail.com",
+      "homepage": "http://viterborodriguez.com"
+    }
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "lib",
+    "src",
+    "www",
+    "style/jwk-ui-core.less",
+    "style/jwk-ui-defskin.less",
+    "style/prueba.less",
+    ".bowerrc",
+    ".gitignore",
+    "bower.json",
+    "index.html",
+    "Gruntfile.js",
+    "Notas.txt",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "jwebkit.js": "jwebkit#~0.1.6"
+  },
+  "devDependencies": {
+    "phaser-examples": "*"
+  }
+}
