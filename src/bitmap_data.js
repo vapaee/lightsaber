@@ -1,30 +1,30 @@
 LightSaber.BitmapData = function (game, spec, parent) {    
-    var layout = {x:22,y:33,width:200,height:200};
-    this.bmd = game.make.bitmapData(layout.width, layout.height);
-    this.bmd.x = this.bmd.y = 0;
-    spec.texture = this.bmd;
     LightSaber.DisplayObject.call(this, game, spec, parent);
-    this.x = layout.x;
-    this.y = layout.y;       
-    this.width = layout.width;
-    this.height = layout.height;     
 };
 
 LightSaber.BitmapData.prototype = LightSaber.utils.extend(Object.create(LightSaber.DisplayObject.prototype), {
-    create: function () {        
-        var pos, color = LightSaber.utils.hexToRgb(this.spec.fillStyle);
-        this.bmd.fill(color.r, color.g, color.b);        
-        this.childrenDoCreate();
+    init: function(game, spec, parent) {
+        LightSaber.DisplayObject.prototype.init.call(this, game, spec, parent);
     },
-    setDeployment: function (dep) {
-        console.error("ERROR");
-        this.bmd.width  = dep.width;
-        this.bmd.height = dep.height;
-        LightSaber.DisplayObject.prototype.setDeployment.call(this, dep);
+    getType: function () {
+        return "BitmapData";
     },
-    setSize: function (size) {
-        this.bmd.width  = size.width;
-        this.bmd.height = size.height;
-        LightSaber.DisplayObject.prototype.setSize.call(this, size);
-    }    
+    create: function () {
+        this.phaser.bmd = this.game.make.bitmapData(this.state.width, this.state.height);
+        this.phaser.bmd.x = this.phaser.bmd.y = 0;
+        if (this.spec.fillStyle) {
+            var color = LightSaber.utils.hexToRgb(this.spec.fillStyle);
+            this.phaser.bmd.fill(color.r, color.g, color.b);
+        }
+        
+        this.phaser.target = this.game.add.image(this.state.x, this.state.y, this.phaser.bmd);
+        this.phaser.target.anchor.set(0, 0);
+        this.phaser.target.scale.set(1, 1);
+        this.phaser.target.alpha = 1;
+        
+        this.phaser.group.addChild(this.phaser.target);
+    },
+    setBounds: function (bounds) {
+        LightSaber.DisplayObject.prototype.setBounds.call(this, bounds);
+    }
 });

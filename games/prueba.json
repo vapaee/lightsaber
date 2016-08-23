@@ -1,35 +1,27 @@
 {
+    "preload": {
+        "book":"http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png"
+    },
     "scene": {
-        "autostart": true,
+        "autostart": true,        
         "children": {
-            "header": {
-                "type": "BitmapData",
-                "fillStyle": "#A00",
-                "width": "100%",
-                "height": "12%",
-                "position": { "my": "top left", "at": "top left", "of": "parent" }
-            },
-            "body": {
-                "type": "BitmapData",
-                "fillStyle": "#00A",
-                "anchors": [
-                    { "my": "top left", "at": "top right", "of": "parent.left" },
-                    { "my": "bottom right", "at": "bottom right", "of": "parent" }
-                ]                
-            },
-            "left": {
-                "title":"left",
-                "name":"left",
-                "frametype":"v",
-                "type": "BitmapData",
-                "fillStyle": "#0A0",
-                "width": "20%",                                            
-                "anchors": [
-                    { "my": "top left", "at": "bottom left", "of": "parent.header" },
-                    { "my": "bottom left", "at": "bottom left", "of": "parent" }
-                ]                                            
-
-            }            
-        }        
+            "body_2":{
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "cover",
+                "tween__": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                },
+                "alpha": 1,
+                "position": {
+                    "my": "middle center",
+                    "at": "middle center",
+                    "of": "parent"
+                }                
+            }
+        }
     }
 }

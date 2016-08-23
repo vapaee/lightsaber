@@ -1,5 +1,5 @@
 LightSaber.YoutubeVideo = function (game, spec, parent) {
-    console.log("LightSaber.YoutubeVideo");
+    // console.log("LightSaber.YoutubeVideo");
     var x=0,y=0,w=200,h=150; // provisorio
     var autoplay = "autoplay=" + (spec.autoplay ? "1" : "0"); 
     var fullscreen = "allowfullscreen='" + (spec.allowfullscreen ? "true" : "false") + "'";    
@@ -11,5 +11,7 @@ LightSaber.YoutubeVideo = function (game, spec, parent) {
 };
 
 LightSaber.YoutubeVideo.prototype = LightSaber.utils.extend(Object.create(LightSaber.DOM_Wrapper.prototype), {
-    
+    getType: function () {
+        return "YoutubeVideo";
+    }
 });

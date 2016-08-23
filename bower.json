@@ -43,8 +43,5 @@
   ],
   "dependencies": {
     "jwebkit.js": "jwebkit#~0.1.6"
-  },
-  "devDependencies": {
-    "phaser-examples": "*"
   }
 }

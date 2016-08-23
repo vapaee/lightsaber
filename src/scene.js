@@ -1,15 +1,29 @@
 LightSaber.Scene = function (game, spec, parent) {
     this.data = game.saber.extend_spec(spec);
     LightSaber.DisplayObject.call(this, game, spec, parent);
-    this.width = game.world.width;
-    this.height = game.world.height;
-    this.x = 0;
-    this.y = 0;
-    this.game.world.addChild(this);
-    this.childrenDoCreate();
 };
 
 LightSaber.Scene.prototype = LightSaber.utils.extend(Object.create(LightSaber.DisplayObject.prototype), {
+    create: function() {
+        this.phaser.target = this.phaser.group;        
+    },
+    init: function(game, spec, parent) {
+        LightSaber.DisplayObject.prototype.init.call(this, game, spec, parent);
+        this.state = {
+            width: this.game.world.width,
+            height: this.game.world.height,
+            x: 0,
+            y: 0
+        }        
+    },
+    update: function(delta) {        
+    },
+    getName: function () {
+        return "root";
+    },
+    getType: function () {
+        return "Scene";
+    },
     resize: function () {
         this.state = {
             width: this.game.world.width,
@@ -18,8 +32,8 @@ LightSaber.Scene.prototype = LightSaber.utils.extend(Object.create(LightSaber.Di
             y: 0
         }
         this._update_state = true;
-        for (var i in this._ls_children) {
-            this._ls_children[i].resize();
+        for (var i in this.children) {
+            this.children[i].resize();
         }        
     }
 });

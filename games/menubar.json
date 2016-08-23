@@ -119,12 +119,6 @@
                 }
             }
         },
-        "children_": {
-            "body_1": {
-                "class": "big-block",
-                "fillStyle": "#700"
-            }
-        },
         "children": {
             "btn_1": {
                 "class": "block",
