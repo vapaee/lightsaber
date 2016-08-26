@@ -6,12 +6,13 @@ LightSaber.Sprite.prototype = LightSaber.utils.extend(Object.create(LightSaber.D
     getType: function () {
         return "Sprite";
     },
-    create: function () {        
+    create: function () {
+        console.debug("create()");
         //this.game.add.existing(this.phaserObj);    
         var target = this.game.add.sprite(this.state.x, this.state.y, this.spec.texture);
-        target.anchor.set(0, 0);
-        target.scale.set(1, 1);
-        target.alpha = 1;
+       // target.anchor.set(0, 0);
+       // target.scale.set(1, 1);
+       // target.alpha = 1;
         
         this.phaser.target = target;
         this.phaser.group.addChild(target);        
@@ -19,22 +20,24 @@ LightSaber.Sprite.prototype = LightSaber.utils.extend(Object.create(LightSaber.D
         this.texture_size = {h:target.texture.height, w: target.texture.width};
         this.aspectRatio = this.texture_size.w / this.texture_size.h;        
         
+        console.log('this.spec["texture-size"]', this.spec["texture-size"]);
         if (this.spec["texture-size"] == "cover") {
             var target = this.phaser.target;
 
             this.initsize = 100;
             var mask = this.game.add.graphics(0, 0);
-            this.phaser.target.mask = mask;
             mask.beginFill(0xffffff);
             mask.drawRect(0, 0, this.initsize, this.initsize);
             mask.endFill();        
-            this.phaser.group.addChild(this.phaser.target);        
+            this.phaser.group.addChild(this.phaser.target);
+            this.phaser.target.mask = mask;
             this.mask = mask;
         }
 
     },
     computeDeployment: function (apply) {    
-        var dep = LightSaber.DisplayObject.prototype.computeDeployment.call(this, false);        
+        var dep = LightSaber.DisplayObject.prototype.computeDeployment.call(this, false);
+        console.debug("Sprite.computeDeployment("+  apply + ")");
         var temp, percent;    
         var size = this.spec["texture-size"];
         if (this.aspectRatio) {            
@@ -51,6 +54,7 @@ LightSaber.Sprite.prototype = LightSaber.utils.extend(Object.create(LightSaber.D
                         dep.x -= 0.5 * (temp-dep.width);
                         dep.width = temp;
                     }
+                    console.debug("compute mask", dep);
                     break;
                 case "contain":
                     if (this.aspectRatio <= dep.width / dep.height) {
@@ -73,6 +77,7 @@ LightSaber.Sprite.prototype = LightSaber.utils.extend(Object.create(LightSaber.D
     },
     setDeployment: function (dep) {
         LightSaber.DisplayObject.prototype.setDeployment.call(this, dep);
+        console.log("setDeployment:", dep);
         this.state.mask = dep.mask;
     },
     
@@ -95,8 +100,8 @@ LightSaber.Sprite.prototype = LightSaber.utils.extend(Object.create(LightSaber.D
                 y: this.state.mask.height / this.initsize,
                 x: this.state.mask.width / this.initsize
             }
-            this.game.add.tween(this.mask).to( mask, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
-            this.game.add.tween(this.mask.scale).to( scale, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
+            //this.game.add.tween(this.mask).to( mask, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
+            //this.game.add.tween(this.mask.scale).to( scale, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
         }
         
     }

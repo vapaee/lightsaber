@@ -68,6 +68,7 @@ LightSaber.prototype = {
                 width = $obj.width();
             }            
         }
+        
         if (this.engine) this.engine.resize(width, height);
     },
     enter_section: function (section) {

@@ -1,5 +1,6 @@
 LightSaber.Scene = function (game, spec, parent) {
     this.data = game.saber.extend_spec(spec);
+    game.saber.engine.scene = this;
     LightSaber.DisplayObject.call(this, game, spec, parent);
 };
 

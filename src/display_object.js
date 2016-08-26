@@ -143,9 +143,8 @@ LightSaber.DisplayObject.prototype = {
         }        
     },    
     createGraphics: function () {
-        //dep = this.computeDeployment(false);
-        //this.state = { x:dep.x,y:dep.y,height:dep.height,width:dep.width };
-        this.state = this.computeDeployment(false);
+        var dep = this.computeDeployment(false);
+        LightSaber.utils.extend(this.state, dep);
         this.createPhaserGroup();
         this.create();
         this.phaser.target._ls_target = this.getName();
@@ -155,7 +154,6 @@ LightSaber.DisplayObject.prototype = {
             var child = this.children[i];
             child.createGraphics();
         }
-        // this.state = this.computeDeployment();
     },
     subscribeToEvents: function () {
         for (var name in this.spec) {
@@ -180,15 +178,12 @@ LightSaber.DisplayObject.prototype = {
         for (var prop in this.data) {
             if (prop in this.game.saber.tweenable_properties) {
                 if (this.data[prop] != this.state[prop]) {
-                    // console.log("Estoy agregando la prop:", prop);
                     this.state[prop] = this.data[prop];
                 }
-                // console.log(">", this.spec.name, this.state);
             }
         }
         for (var i=0; i<this.children.length; i++) {
             this.children[i].updateSpec();
-            // this.children[i].childrenDoCreate();
         }        
     },
     childrenDoCreate: function() {
@@ -196,7 +191,6 @@ LightSaber.DisplayObject.prototype = {
         console.assert(this.children, "ERROR: this.children does't exist");
         for (var i=0; i<this.children.length; i++) {
             this.children[i].create();
-            // this.children[i].childrenDoCreate();
         }        
     },
     getChild: function(name) {        
@@ -221,6 +215,7 @@ LightSaber.DisplayObject.prototype = {
                 console.error("ERROR: use 'middle' instead of 'center' for vertical aligment");
                 break;
             default:
+                console.assert(!isNaN(parseFloat(parts[1])), "ERROR: invalid value for y/height: ", parts[0]);
                 if (parts[0].indexOf("%") != -1) {
                     oy = parseInt(parts[0].substr(0, parts[0].indexOf("%"))) * 0.01;
                 } else {
@@ -233,6 +228,7 @@ LightSaber.DisplayObject.prototype = {
             case "center": ox = 0.5; break;
             case "right":  ox = 1;   break;
             default:
+                console.assert(!isNaN(parseFloat(parts[1])), "ERROR: invalid value for x/width: ", parts[1]);
                 if (parts[1].indexOf("%") != -1) {
                     ox = parseInt(parts[1].substr(0, parts[1].indexOf("%"))) * 0.01;
                 } else {
@@ -250,7 +246,8 @@ LightSaber.DisplayObject.prototype = {
         this.setPosition(dep);
     },
     updateDeployment: function () {
-        this.state = this.computeDeployment(true);
+        var dep = this.computeDeployment(true);
+        LightSaber.utils.extend(this.state, dep);
         return this;
     },
     getPrevChild: function (obj) {
@@ -315,12 +312,6 @@ LightSaber.DisplayObject.prototype = {
             this.y = this.x = 0;        
             for (var i=0;i<2;i++) {
                 refobj[i] = this.resolveReference(this.data.anchors[i].of);
-                /*
-                index[i] = this.data.anchors[i].of.indexOf("parent.");
-                if (index[i] != -1) {
-                    refobj[i] = this.parent.getChild(this.data.anchors[i].of.substr("parent.".length));
-                }
-                */
                 my_coords[i] = this.translateToCoords(this.data.anchors[i].my);
                 at_coords[i] = refobj[i].translateToCoords(this.data.anchors[i].at);
             }
@@ -376,12 +367,6 @@ LightSaber.DisplayObject.prototype = {
             console.assert(typeof this.data.position.of == "string", "ERROR: position MUST have a 'of' attribute referencing a valid object");
             console.assert(typeof this.data.position.at == "string", "ERROR: position MUST have a 'at' attribute referencing a valid object");
             var refobj = this.resolveReference(this.data.position.of);
-            /*
-            var index = this.data.position.of.indexOf("parent.");
-            if (index != -1) {
-                refobj = this.parent.getChild(this.data.position.of.substr("parent.".length));
-            }
-            */
             this.state.y = this.state.x = 0;            
             var my_coords = this.translateToCoords(this.data.position.my);
             var at_coords = refobj.translateToCoords(this.data.position.at);
@@ -394,14 +379,9 @@ LightSaber.DisplayObject.prototype = {
         } else {
             this.state.width = before.width;
             this.state.height = before.height;
-        }            
-        // console.debug(this.name, result, "this.parent.state.width:", this.parent.state.width);        
+        }      
         return result;
-    },/*
-    setBounds: function (bounds) {
-        this.setSize(bounds);
-        this.setPosition(bounds);
-    }, */   
+    },
     setSize: function (size) {
         this.state.width  = size.width;
         this.state.height = size.height;
@@ -432,12 +412,17 @@ LightSaber.DisplayObject.prototype = {
         }
     },
     applyState: function () {
-        var state = { width: this.state.width, height: this.state.height, x: this.state.x, y: this.state.y }
+        var state = {width: this.state.width, height: this.state.height, x: this.state.x, y: this.state.y };
         LightSaber.utils.extend(this.phaser.target, state);
+        if (typeof this.state.alpha != "undefined") this.phaser.group.alpha = this.state.alpha;
     },    
     applyStateSmooth: function () {
-        var state = { width: this.state.width, height: this.state.height, x: this.state.x, y: this.state.y }
-        var tween = this.game.add.tween(this.phaser.target).to( state, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
+        var state = { width: this.state.width, height: this.state.height, x: this.state.x, y: this.state.y };
+        this.game.add.tween(this.phaser.target).to( state, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
+        //if (typeof this.state.alpha != "undefined") state.alpha = this.state.alpha;
+        if (typeof this.state.alpha != "undefined") {
+            this.game.add.tween(this.phaser.group).to( {alpha: this.state.alpha}, this.spec.tween.time, this.spec.tween.ease, true, this.spec.tween.delay);
+        }
     },    
     create: function (){
         console.error(this.getType() + ".create() not found");        

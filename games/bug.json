@@ -1,6 +1,7 @@
 {
     "preload": {
-        "book":"http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png"
+        "book":"http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png",
+        "chaos":"http://localhost:8002/lib/assets/pics/hotshot-chaos_in_tokyo.png"
     },
     "class": {
         "big-block": {
@@ -180,20 +181,29 @@
                     "ease": "Quad.easeOut"
                 }
             },
-            "body_2":{
+            "body_2": {
                 "type": "Sprite",
                 "texture": "book",
                 "width": "50%",
                 "height": "50%",
                 "texture-size": "cover",
+                "alpha": 0,
                 "tween": {
-                    "time": 2250,
+                    "time": 250,
                     "ease": "Quad.easeOut"
                 }                
             },
             "body_3": {
-                "class": "big-block",
-                "fillStyle": "#707"
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "contain",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }                
             },
             "body_4": {
                 "class": "big-block",

@@ -19,8 +19,7 @@ LightSaber.Engine = function (settings, saber) {
 };
 LightSaber_Engine_prototype = {
     constructor: LightSaber.Engine,
-    resize:function (width, height) {
-        console.log("resize");
+    resize:function (width, height) {        
         var bounds = new Phaser.Rectangle(0, 0, width, height);
         
         var $obj = LightSaber.utils.$("#" + this._container_id);
@@ -59,38 +58,34 @@ LightSaber_Engine_prototype = {
         this.game.camera.bounds = bounds;
         this.game.world.bounds = bounds;
         this.game.width = width;
-        this.game.height = height;
-        this.game.stage.width = width;
-        this.game.stage.height = height;
-        
-        this.scene.resize();
-        // console.debug("--------> this.game.time.time: ", this.game.time.time);
+        this.game.height = height;           
+        if (this.scene) this.scene.resize();
         this.game.raf.updateRAF(this.game.time.time);
-        
-        console.log("->",this.scene.serialize());
-        console.log("->",this.scene.debugPhaser());
     },
-    start: function (){
-        console.debug("start --> ", this._size.width, this._size.height, Phaser.AUTO, this._container_id);
-        
+    start: function () {
+        /*
+        this.game = new Phaser.Game(400, 300, Phaser.AUTO, "container", {
+            preload:LightSaber.Engine.prototype.preload.bind(this),
+            create:LightSaber.Engine.prototype.create.bind(this),
+            update:LightSaber.Engine.prototype.update.bind(this),
+            render:LightSaber.Engine.prototype.render.bind(this)
+        });        
+        */
         this.game = new Phaser.Game(this._size.width, this._size.height, Phaser.AUTO, this._container_id);        
         this.game.saber = this.saber;
         this.game.state.add( 'LightSaber', this );
-        this.game.state.start( 'LightSaber' );
-        // LightSaber.DOM_Wrapper.install(this.game);
+        this.game.state.start( 'LightSaber' );        
         return this._boot_deferred.promise();
     },
-    preload: function () {
-        console.log("preload()");        
+    preload: function () {        
         for (var name in this._spec.preload) {        
             this.game.load.image(name, this._spec.preload[name]);
         }        
     },    
     updateSpec:function () {
-        this.scene.updateSpec();
+        if (this.scene) this.scene.updateSpec();
     },    
     createScene:function () {        
-        console.log("createScene()");    
         this.scene = new LightSaber.Scene(this.game, this._data.scene);
         this.scene.createGraphics();
     },
@@ -107,7 +102,6 @@ LightSaber_Engine_prototype = {
         return true;
     },  
     create: function () {
-        console.log("create()", this._spec);        
         if (this.parse_gamejson(this._spec)) {
             console.assert(this._data, "ERROR: this._data not set");
             this.createScene();            
@@ -126,7 +120,7 @@ LightSaber_Engine_prototype = {
     },
     update: function (delta) {
         //console.log("update()");
-        this.scene.doUpdate(delta);
+        if (this.scene) this.scene.doUpdate(delta);
         if (this._boot_deferred_pending) this._boot_deferred.resolve();
         if (typeof this._callbacks.update == "function") {
             this._callbacks.update(this.game);            
