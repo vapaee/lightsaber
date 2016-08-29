@@ -13,7 +13,7 @@ LightSaber.utils.Deferred = LightSaber.utils.$.Deferred
 LightSaber.utils.extend = LightSaber.utils.$.extend 
     || (typeof angular != "undefined" ? angular.extend : null)
     || (typeof jwk != "undefined" ? jwk.extend : null);    
-
+LightSaber.utils.mapping = (typeof jwk != "undefined" ? jwk.Node : null);
 
 LightSaber.prototype = {
     constructor: LightSaber,
@@ -68,9 +68,11 @@ LightSaber.prototype = {
                 width = $obj.width();
             }            
         }
+        
         if (this.engine) this.engine.resize(width, height);
     },
     enter_section: function (section) {
+        console.log("enter_section ->", section);
         this._section = section;
         this.updateSpec();
         this.resize();

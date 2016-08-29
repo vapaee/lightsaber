@@ -1,0 +1,85 @@
+{
+    "preload": {
+        "image": {
+            "diamond": "http://localhost:8002/lib/assets/sprites/diamond.png"
+        },
+        "bitmapFont": {
+            "desyrel": {
+                "texture": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.png",
+                "xml": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.xml"
+            }
+        }
+    },    
+    "class": {
+        "centered": {
+            "position": {
+                "my": "middle center",
+                "at": "middle center",
+                "of": "parent"
+            }
+        },
+        "animated": {
+            "tween": {
+                "time": 200,
+                "ease": "Quad.easeOut"
+            }
+        }
+    },                    
+    "scene": {
+        "autostart": true,
+        "children": {
+            "coso": {
+                "type": "InlineBlock",       
+                "class": "centered",
+                "width": "50%",
+                "children": {
+                    "bg": {                        
+                        "type": "BitmapData",
+                        "anchors": [
+                            { "my": "top left", "at": "top left", "of": "parent" },
+                            { "my": "bottom right", "at": "bottom right", "of": "parent" }
+                        ],
+                        "fillStyle": "#222"
+                    },
+                    "bloke1": {
+                        "type": "BitmapData",
+                        "height": "25",
+                        "width": "100",
+                        "class": "animated",
+                        "fillStyle": "#F60"
+                    },
+                    "bitmaptext": {
+                        "type": "Text",
+                        "bitmap": "desyrel",
+                        "class": "animated",
+                        "text": "Este texto es BitmapFont"
+                    },
+                    "bloke3": {
+                        "type": "BitmapData",
+                        "height": "50",
+                        "width": "50",
+                        "class": "animated",
+                        "fillStyle": "#0F0"
+                    },
+                    "styledtext": {
+                        "type": "Text",                
+                        "class": "animated",
+                        "text": "Este texto es styled"
+                    },
+                    "diamante": {
+                        "type": "Sprite",
+                        "class": "animated",
+                        "texture": "diamond"
+                    },                    
+                    "bloke2": {
+                        "type": "BitmapData",
+                        "height": "10",
+                        "width": "150",
+                        "class": "animated",
+                        "fillStyle": "#30F"
+                    }                   
+                }                
+            }
+        }
+    }
+}

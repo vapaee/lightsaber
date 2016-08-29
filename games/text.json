@@ -1,0 +1,42 @@
+{
+    "preload": {
+        "image": {
+            "book": "http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png"
+        },
+        "bitmapFont": {
+            "desyrel": {
+                "texture": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.png",
+                "xml": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.xml"
+            }
+        }
+    },
+    "class": {
+        "centered": {
+            "position": {
+                "my": "middle center",
+                "at": "middle center",
+                "of": "parent"
+            }
+        }
+    },
+    "scene": {
+        "autostart": true,
+        "children": {
+            "bitmaptext": {
+                "position": {
+                    "my":"top left",
+                    "at":"100 100",
+                    "of": "siblings.next"
+                },
+                "type": "Text",
+                "bitmap": "desyrel",
+                "text": "Este texto es BitmapFont"
+            },
+            "styledtext": {
+                "class": "centered",
+                "type": "Text",                
+                "text": "Este texto es styled"
+            }
+        }
+    }
+}

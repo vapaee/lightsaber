@@ -1,4 +1,10 @@
 {
+    "preload": {
+        "image": {
+            "book":"http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png",
+            "chaos":"http://localhost:8002/lib/assets/pics/hotshot-chaos_in_tokyo.png"
+        }
+    },
     "class": {
         "big-block": {
             "type": "BitmapData",
@@ -12,8 +18,15 @@
         },
         "block": {
             "type": "BitmapData",
+            "text": "text",
+            "height": "20",
             "width": "50",
-            "height": "20"
+            "children": {
+                "text": {
+                    "type": "Text",
+                    "text": "click me"
+                }
+            }
         }
     },
     "scene": {
@@ -31,21 +44,21 @@
                     "position": {
                         "my": "top left",
                         "at": "top right",
-                        "of": "parent.btn_1"
+                        "of": "siblings.prev"
                     }
                 },
                 "btn_3": {
                     "position": {
                         "my": "top left",
                         "at": "top right",
-                        "of": "parent.btn_2"
+                        "of": "siblings.prev"
                     }
                 },
                 "btn_4": {
                     "position": {
                         "my": "top left",
                         "at": "top right",
-                        "of": "parent.btn_3"
+                        "of": "siblings.prev"
                     }
                 },
                 "body_1": {
@@ -153,16 +166,46 @@
                 }
             },
             "body_1": {
-                "class": "big-block",
-                "fillStyle": "#700"
+                "type": "YoutubeVideo",
+                "videoid": "3zKoUda-WVA",                            
+                "autoplay": false,
+                "allowfullscreen": true,
+                "maxWidth": "90%",
+                "minWidth": "50%",
+                "maxHeight": "90%",
+                "minHeight": "50%",
+                "width": "800",
+                "height": "600",
+                "aspectRatio": "1.778",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }
             },
             "body_2": {
-                "class": "big-block",
-                "fillStyle": "#770"
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "cover",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }                
             },
             "body_3": {
-                "class": "big-block",
-                "fillStyle": "#707"
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "contain",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }                
             },
             "body_4": {
                 "class": "big-block",

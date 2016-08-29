@@ -1,0 +1,105 @@
+{
+    "preload": {
+        "image": {
+            "book": "http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png"
+        },
+        "bitmapFont": {
+            "desyrel": {
+                "texture": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.png",
+                "xml": "http://localhost:8002/lib/assets/fonts/bitmapFonts/desyrel.xml"
+            }
+        }
+    },    
+    "class": {
+        "cover": {
+            "width": "100%",
+            "height": "100%",
+            "class": "centered"
+        },
+        "centered": {
+            "position": {
+                "my": "middle center",
+                "at": "middle center",
+                "of": "parent"
+            }
+        },
+        "animated": {
+            "tween": {
+                "time": 250,
+                "ease": "Quad.easeOut"
+            }
+        }
+    },    
+    "scene": {
+        "autostart": true,
+        "sections": {
+            "/":{
+                "bg_up": { "alpha": 1 },
+                "bg_down": { "alpha": 0 },
+                "bg_over": { "alpha": 0 }
+            },
+            "/up":{
+                "bg_up": { "alpha": 1 },
+                "bg_down": { "alpha": 0 },
+                "bg_over": { "alpha": 0 }
+            },
+            "/down":{
+                "bg_up": { "alpha": 0 },
+                "bg_down": { "alpha": 1 },
+                "bg_over": { "alpha": 0 }
+            },
+            "/over":{
+                "bg_up": { "alpha": 0 },
+                "bg_down": { "alpha": 0 },
+                "bg_over": { "alpha": 1 }
+            }
+        },        
+        "children": {
+            "button": {
+                "type": "InlineBlock",
+                "class": "centered",
+                "padding": "10px 20px",
+                "onInputDown": {
+                    "handler": "scene-enter-section",
+                    "params": "/down"
+                },
+                "onInputOut": {
+                    "handler": "scene-enter-section",
+                    "params": "/up"
+                },
+                "onInputUp": {
+                    "handler": "scene-enter-section",
+                    "params": "/over"
+                },
+                "onInputOver": {
+                    "handler": "scene-enter-section",
+                    "params": "/over"
+                },
+                "children": {
+                    "bg_up": {
+                        "alpha": 1,
+                        "type": "BitmapData",
+                        "class": "cover",
+                        "fillStyle": "#222"
+                    },
+                    "bg_down": {                        
+                        "alpha": 1,
+                        "type": "BitmapData",
+                        "class": "cover",
+                        "fillStyle": "#f22"
+                    },
+                    "bg_over": {                        
+                        "alpha": 1,
+                        "type": "BitmapData",
+                        "class": "cover",
+                        "fillStyle": "#22f"
+                    },
+                    "styledtext": {
+                        "type": "Text",                
+                        "text": "Button"
+                    }                    
+                }                
+            }
+        }
+    }
+}

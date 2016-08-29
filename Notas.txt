@@ -1,0 +1,1 @@
+BitmapFont Editor: http://kvazars.com/littera/
