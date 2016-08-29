@@ -391,8 +391,7 @@ LightSaber.DisplayObject.prototype = {
         } else {
             this.state.width = before.width;
             this.state.height = before.height;
-        }
-        // console.log("result", this.getName(), result);
+        }      
         return result;
     },
     setSize: function (size) {

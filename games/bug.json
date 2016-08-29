@@ -1,7 +1,18 @@
 {
     "preload": {
-        "image": {
-            "book": "http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png"
+        "book":"http://localhost:8002/lib/assets/pics/TheBrightestLightComesFromTheDarkestPlace_by_Slayer_Ghostown.png",
+        "chaos":"http://localhost:8002/lib/assets/pics/hotshot-chaos_in_tokyo.png"
+    },
+    "class": {
+        "big-block": {
+            "type": "BitmapData",
+            "width": "50%",
+            "height": "50%",
+            "alpha": 0,
+            "tween": {
+                "time": 250,
+                "ease": "Quad.easeOut"
+            }
         },
         "bitmapFont": {
             "desyrel": {
@@ -18,45 +29,87 @@
                 "of": "parent"
             }
         }
-    },
-                    "bitmaptext": {
-                        "type": "Text",
-                        "bitmap": "desyrel",
-                        "text": "Este texto es BitmapFont"
-                    },
-                    "styledtext": {
-                        "type": "Text",                
-                        "text": "Este texto es styled"
-                    },
+    },                    
     "scene": {
         "autostart": true,
         "children": {
-            "coso": {
-                "type": "InlineBlock",                
-                "class": "centered",
-                "width": "200",
-                "children": {
-                    "bg": {
-                        "type": "BitmapData",
-                        "anchors": [
-                            { "my": "top left", "at": "top left", "of": "parent" },
-                            { "my": "bottom right", "at": "bottom right", "of": "parent" }
-                        ],
-                        "fillStyle": "#FFF"
-                    },
-                    "text1": {
-                        "type": "BitmapData",
-                        "height": "10",
-                        "width": "100",
-                        "fillStyle": "#F60"
-                    },
-                    "text2": {
-                        "type": "BitmapData",
-                        "height": "10",
-                        "width": "50",
-                        "fillStyle": "#30F"
-                    }
+            "btn_1": {
+                "class": "block",
+                "fillStyle": "#F00",
+                "onInputDown": {
+                    "handler": "scene-enter-section",
+                    "params": "/btn1"
+                }
+            },
+            "btn_2": {
+                "class": "block",
+                "fillStyle": "#FF0",
+                "onInputDown": {
+                    "handler": "scene-enter-section",
+                    "params": "/btn2"
+                }
+            },
+            "btn_3": {
+                "class": "block",
+                "fillStyle": "#F0F",
+                "onInputDown": {
+                    "handler": "scene-enter-section",
+                    "params": "/btn3"
+                }
+            },
+            "btn_4": {
+                "class": "block",
+                "fillStyle": "#0F0",
+                "onInputDown": {
+                    "handler": "scene-enter-section",
+                    "params": "/btn4"
+                }
+            },
+            "body_1": {
+                "type": "YoutubeVideo",
+                "videoid": "3zKoUda-WVA",                            
+                "autoplay": false,
+                "allowfullscreen": true,
+                "maxWidth": "90%",
+                "minWidth": "50%",
+                "maxHeight": "90%",
+                "minHeight": "50%",
+                "width": "800",
+                "height": "600",
+                "aspectRatio": "1.778",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }
+            },
+            "body_2": {
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "cover",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
                 }                
+            },
+            "body_3": {
+                "type": "Sprite",
+                "texture": "book",
+                "width": "50%",
+                "height": "50%",
+                "texture-size": "contain",
+                "alpha": 0,
+                "tween": {
+                    "time": 250,
+                    "ease": "Quad.easeOut"
+                }                
+            },
+            "body_4": {
+                "class": "big-block",
+                "fillStyle": "#070"
             }
         }
     }
